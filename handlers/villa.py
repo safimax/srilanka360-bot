@@ -17,7 +17,7 @@ async def handle_have_link(callback: CallbackQuery, state: FSMContext):
 @router.callback_query(F.data == "хочу_описать_мечту")
 async def handle_want_dream(callback: CallbackQuery, state: FSMContext):
     """Пользователь выбрал 'Хочу описать мечту'"""
-    text = "Время мечтать! 🌴 Расскажите, какую Шри-Ланку хотите и на какой бюджет.\n\nПро деньги тоже напишите — всё равно спросим. Реалистичный бюджет = реалистичные предложения."
+    text = get_text("screens.dream_form.message")
     await callback.message.edit_text(text)
     await state.set_state(BotStates.DREAM_FORM)
     await callback.answer()
@@ -75,4 +75,5 @@ async def show_villa_fork(message: Message, state: FSMContext):
     keyboard = get_keyboard(["📎 Есть ссылка/номер виллы", "🌴 Хочу описать мечту"])
     
     await message.answer(text, reply_markup=keyboard)
+
     await state.set_state(BotStates.VILLA_FORK)
